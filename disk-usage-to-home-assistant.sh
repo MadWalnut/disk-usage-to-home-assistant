@@ -76,21 +76,21 @@ USED_PERCENTAGE_RAW=${USED_PERCENTAGE::-1}
 
 # Send relevant values to Home Assistant.
 # TOTAL_GB.
-curl -sS -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${TOTAL_GB}\", \"attributes\": {\"unit_of_measurement\": \"GB\", \"friendly_name\": \"${SERVER_NAME} Total GB\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_total_gb
+curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${TOTAL_GB}\", \"attributes\": {\"unit_of_measurement\": \"GB\", \"friendly_name\": \"${SERVER_NAME} Total GB\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_total_gb
 # USED_GB.
-curl -sS -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${USED_GB}\", \"attributes\": {\"unit_of_measurement\": \"GB\", \"friendly_name\": \"${SERVER_NAME} Used GB\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_used_gb
+curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${USED_GB}\", \"attributes\": {\"unit_of_measurement\": \"GB\", \"friendly_name\": \"${SERVER_NAME} Used GB\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_used_gb
 # AVAILABLE_GB.
-curl -sS -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${AVAILABLE_GB}\", \"attributes\": {\"unit_of_measurement\": \"GB\", \"friendly_name\": \"${SERVER_NAME} Available GB\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_available_gb
+curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${AVAILABLE_GB}\", \"attributes\": {\"unit_of_measurement\": \"GB\", \"friendly_name\": \"${SERVER_NAME} Available GB\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_available_gb
 # USED_PERCENTAGE_RAW.
-curl -sS -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${USED_PERCENTAGE_RAW}\", \"attributes\": {\"unit_of_measurement\": \"%\", \"friendly_name\": \"${SERVER_NAME} Used Percentage\"}}" ${HOME_ASSISTANT_URL}/api/sensor.${SENSOR_PREFIX}_used_percentage
+curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${USED_PERCENTAGE_RAW}\", \"attributes\": {\"unit_of_measurement\": \"%\", \"friendly_name\": \"${SERVER_NAME} Used Percentage\"}}" ${HOME_ASSISTANT_URL}/api/sensor.${SENSOR_PREFIX}_used_percentage
 
 # Trigger Apprise if percentage is at or over threshold.
 if [ ${USED_PERCENTAGE_RAW} -ge ${THRESHOLD} ]; then
-  curl -sS -o /dev/null -X POST -d "tag=${APPRISE_TAG}&type=warning&title=${SERVER_NAME} Alert&body=Storage usage is at ${USED_PERCENTAGE}." ${APPRISE_URL}
+  curl -sSf -o /dev/null -X POST -d "tag=${APPRISE_TAG}&type=warning&title=${SERVER_NAME} Alert&body=Storage usage is at ${USED_PERCENTAGE}." ${APPRISE_URL}
 fi
 
 # Notify Healthchecks. This will not be called if there is an error due to the enabled pipefail at the beginning of the script. If no call reaches Healthchecks in your specified time, Healthchecks will notify you about the failure.
-curl -sS -m 10 --retry 5 ${HEALTHCHECKS_URL}
+curl -sSf -m 10 --retry 5 ${HEALTHCHECKS_URL}
 
 # Cleaner console output by printing a newline.
 echo
