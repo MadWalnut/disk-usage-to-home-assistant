@@ -82,7 +82,7 @@ curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-T
 # AVAILABLE_GB.
 curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${AVAILABLE_GB}\", \"attributes\": {\"unit_of_measurement\": \"GB\", \"friendly_name\": \"${SERVER_NAME} Available GB\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_available_gb
 # USED_PERCENTAGE_RAW.
-curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${USED_PERCENTAGE_RAW}\", \"attributes\": {\"unit_of_measurement\": \"%\", \"friendly_name\": \"${SERVER_NAME} Used Percentage\"}}" ${HOME_ASSISTANT_URL}/api/sensor.${SENSOR_PREFIX}_used_percentage
+curl -sSf -o /dev/null -X POST -H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" -d "{\"state\": \"${USED_PERCENTAGE_RAW}\", \"attributes\": {\"unit_of_measurement\": \"%\", \"friendly_name\": \"${SERVER_NAME} Used Percentage\"}}" ${HOME_ASSISTANT_URL}/api/states/sensor.${SENSOR_PREFIX}_used_percentage
 
 # Trigger Apprise if percentage is at or over threshold.
 if [ ${USED_PERCENTAGE_RAW} -ge ${THRESHOLD} ]; then
