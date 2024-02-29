@@ -10,7 +10,7 @@ This simple bash script connects to a given server via SSH, gets the filesystem 
 - Monitoring Server (e.g. generic Linux VM) that will run this script periodically
 - Home Assistant Long-Lived Access Token (create one via *user profile -> scroll to bottom*)
 - *Optional but recommended: [Healthchecks.io](https://healthchecks.io) generated check URL to monitor this script so you get notified if something stops working*
-- *Optional: running instance of [Apprise API](https://apprise.example.com/notify/apprise) or a similar service to notify you if the storage gets low (can also be achieved through a Home Assistant automation though)*
+- *Optional: running instance of [Apprise API](https://github.com/caronc/apprise-api) or a similar service to notify you if the storage gets low (can also be achieved through a Home Assistant automation though)*
 
 ### Script Setup
 
