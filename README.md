@@ -7,7 +7,7 @@ This simple bash script connects to a given server via SSH, gets the filesystem 
 ### Prerequisites
 
 - Server to monitor with SSH access via passwordless SSH key and the `df` command available (e.g. Hetzner Storage Box)
-- Monitoring Server (e.g. generic Linux VM) that will run this script periodically
+- Monitoring Server (e.g. generic Linux VM) with installed `curl` that will run this script periodically
 - Home Assistant Long-Lived Access Token (create one via *user profile -> scroll to bottom*)
 - *Optional but recommended: [Healthchecks.io](https://healthchecks.io) generated check URL to monitor this script so you get notified if something stops working*
 - *Optional: running instance of [Apprise API](https://github.com/caronc/apprise-api) or a similar service to notify you if the storage gets low (can also be achieved through a Home Assistant automation though)*
